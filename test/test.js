@@ -84,7 +84,7 @@ describe("Node Server Request Listener Function", function() {
     });
   });
 
-  xit("Should 404 when asked for a nonexistent file", function(done) {
+  it("Should 404 when asked for a nonexistent file", function(done) {
     var req = new stubs.Request("/arglebargle", "GET");
 
     handler.handleRequest(req, res);
@@ -101,11 +101,11 @@ describe("Node Server Request Listener Function", function() {
 
 describe("html fetcher helpers", function(){
 
-  xit("should have a 'readListOfUrls' function", function(){
+  it("should have a 'readListOfUrls' function", function(){
     expect(typeof archive.readListOfUrls).to.equal('function');
   });
 
-  xit("should read urls from sites.txt", function(done){
+  it("should read urls from sites.txt", function(done){
     var urlArray = ["example1.com", "example2.com"];
     var resultArray;
 

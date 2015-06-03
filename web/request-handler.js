@@ -10,7 +10,14 @@ var routes = {
 
 var actions = {
   'GET': function(request, response) {
-    helpers.serveAssets(response, routes[request.url], null);
+
+    if (routes[request.url]){
+      helpers.serveAssets(response, routes[request.url], null);
+    } else {
+      response.writeHead(404, helpers.headers);
+      response.end();
+    }
+
   },
   'POST': function(request, response) {
     archive.addUrlToList(request, response);
