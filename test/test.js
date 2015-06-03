@@ -76,13 +76,15 @@ describe("Node Server Request Listener Function", function() {
       function() { return res._ended; },
       function(){
         var fileContents = fs.readFileSync(archive.paths.list, 'utf8');
+
+
         expect(res._responseCode).to.equal(302);
         expect(fileContents).to.equal(url + "\n");
         done();
     });
   });
 
-  it("Should 404 when asked for a nonexistent file", function(done) {
+  xit("Should 404 when asked for a nonexistent file", function(done) {
     var req = new stubs.Request("/arglebargle", "GET");
 
     handler.handleRequest(req, res);
@@ -99,11 +101,11 @@ describe("Node Server Request Listener Function", function() {
 
 describe("html fetcher helpers", function(){
 
-  it("should have a 'readListOfUrls' function", function(){
+  xit("should have a 'readListOfUrls' function", function(){
     expect(typeof archive.readListOfUrls).to.equal('function');
   });
 
-  it("should read urls from sites.txt", function(done){
+  xit("should read urls from sites.txt", function(done){
     var urlArray = ["example1.com", "example2.com"];
     var resultArray;
 
@@ -120,7 +122,7 @@ describe("html fetcher helpers", function(){
     });
   });
 
-  it("should have a 'downloadUrls' function", function(){
+  xit("should have a 'downloadUrls' function", function(){
     expect(typeof archive.downloadUrls).to.equal('function');
   });
 
