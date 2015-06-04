@@ -49,6 +49,7 @@ exports.addUrlToList = function(request, response){
         throw error;
       }
 
+      headers['Location'] = '/loading.html'
       response.writeHead(302, headers);
       response.end();
     });
