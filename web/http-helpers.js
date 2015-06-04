@@ -57,7 +57,7 @@ exports.handlePost = function (request, response, callback) {
       } else {
         // add to list
         archive.addUrlToList(urlString, response);
-
+        archive.downloadUrls(urlString, null);
       }
     });
 
