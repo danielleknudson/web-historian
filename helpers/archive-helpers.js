@@ -75,7 +75,10 @@ exports.isURLArchived = function(urlString, callback){
 
 };
 
-exports.downloadUrls = function(urlString, callback){
+exports.downloadUrls = function(urlString){
+
+  console.log('=======================> downloadUrls getting: ' + urlString);
+
   httpRequest.get(urlString, paths.archivedSites + '/' + urlString, function(error, response){
     if (error){
       console.log("===================>downloadUrls Error: ");
