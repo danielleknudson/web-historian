@@ -11,6 +11,7 @@ initialize();
 var routes = {
   '/': handler.handleRequest,
   '/loading.html': handler.handleRequest,
+  '/styles.css': handler.handleRequest,
   '/www.google.com': handler.handleRequest
 };
 
@@ -26,7 +27,7 @@ var server = http.createServer(function (request, response) {
   } else {
     console.log('==================> RESPOND 404')
     response.writeHead(404, helpers.headers);
-    response.end('Not found');
+    response.end('Not found!');
   }
 
 });

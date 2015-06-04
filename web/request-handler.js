@@ -6,6 +6,7 @@ var helpers = require('./http-helpers');
 var filepath = {
   '/': './public/index.html',
   '/loading.html': './public/loading.html',
+  '/styles.css': './public/styles.css',
   '/www.google.com': '../archives/sites/www.google.com'
 };
 
@@ -14,7 +15,11 @@ var actions = {
     helpers.serveAssets(response, filepath[request.url], null);
   },
   'POST': function(request, response) {
-    archive.addUrlToList(request, response);
+    helpers.handlePost(request, response, null);
+  },
+  'OPTIONS': function(request, response){
+    response.writeHead(200, helpers.headers);
+    response.end();
   }
 };
 

@@ -37,24 +37,31 @@ exports.readListOfUrls = function(callback){
   });
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(urlString){
+  result = false;
+
+  exports.readListOfUrls(function(array) {
+    if (array.indexOf(urlString) >= 0) {
+      result = true;
+    }
+  });
+
+  return result;
 };
 
-exports.addUrlToList = function(request, response){
+exports.addUrlToList = function(urlString, response){
 
-  request.on('end', function (){
+  fs.appendFile(paths.list, urlString + '\n', 'utf8', function (error) {
+    if (error) {
+      throw error;
+    }
 
-    fs.appendFile(paths.list, request._postData.url + '\n', 'utf8', function (error) {
-      if (error) {
-        throw error;
-      }
-
-      headers['Location'] = '/loading.html'
-      response.writeHead(302, headers);
-      response.end();
-    });
-
+    console.log('==============================> Sending 302')
+    headers['Location'] = '/loading.html'
+    response.writeHead(302, headers);
+    response.end();
   });
+
 };
 
 exports.isURLArchived = function(){

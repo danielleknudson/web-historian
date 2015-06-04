@@ -29,5 +29,22 @@ exports.serveAssets = function(response, asset, callback) {
   });
 };
 
+exports.handlePost = function (request, response, callback) {
+  var data = '';
+  request.on('data', function(chunk){
+    data += chunk;
+  });
+
+  request.on('end', function (){
+
+    var urlString = data.substr(4);
+
+    if (archive.isUrlInList(urlString) === false) {
+      archive.addUrlToList(urlString, response);
+    }
+
+  });
+
+}
 
 // As you progress, keep thinking about what helper functions you can put here!
