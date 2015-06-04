@@ -12,7 +12,12 @@ var filepath = {
 
 var actions = {
   'GET': function(request, response) {
-    helpers.serveAssets(response, filepath[request.url], null);
+    if (filepath[request.url]){
+      helpers.serveAssets(response, filepath[request.url], null);
+    } else {
+      response.writeHead(404, helpers.headers);
+      response.end();
+    }
   },
   'POST': function(request, response) {
     helpers.handlePost(request, response, null);
@@ -25,7 +30,8 @@ var actions = {
 
 
 exports.handleRequest = function (request, response) {
-  // console.log('==============>' + request.method + ' REQUEST | URL: ' + request.url);
+  // var parts = urlParser.parse(request.url);
+  // var route = routes[parts.pathname];
   actions[request.method](request, response);
 
   // response.end(archive.paths.list);

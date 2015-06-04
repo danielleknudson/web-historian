@@ -2,33 +2,11 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="styles.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body>
   Enter a URL here:
   <form method="POST">
     <input type="input" name="url"></input>
   </form>
-  <script type="text/javascript">
-    $(function() {
-      $('form').on('submit', function(e){
-        var $url = $('input').val();
-
-        $.ajax({
-          url: 'http://127.0.0.1:8080',
-          type: 'POST',
-          data: 'url=' + $url,
-          contentType: 'text/html',
-          success: function(data){
-            console.log("Submit success!");
-          },
-          error: function(data){
-            console.log("Submit failure");
-          }
-        });
-
-      });
-    });
-  </script>
 </body>
 </html>

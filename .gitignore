@@ -32,6 +32,9 @@ results
 npm-debug.log
 node_modules
 
+###Bower Components###
+bower_components
+
 # Floobits
 .floo
 .floobit

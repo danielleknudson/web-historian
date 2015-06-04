@@ -37,16 +37,15 @@ exports.readListOfUrls = function(callback){
   });
 };
 
-exports.isUrlInList = function(urlString){
-  result = false;
+exports.isUrlInList = function(urlString, callback){
 
   exports.readListOfUrls(function(array) {
     if (array.indexOf(urlString) >= 0) {
-      result = true;
+      callback(urlString, true);
+    } else {
+      callback(urlString, false);
     }
   });
-
-  return result;
 };
 
 exports.addUrlToList = function(urlString, response){
@@ -64,7 +63,16 @@ exports.addUrlToList = function(urlString, response){
 
 };
 
-exports.isURLArchived = function(){
+exports.isURLArchived = function(urlString, callback){
+
+  fs.readdir(paths.archivedSites, function(error, files) {
+    if (files.indexOf(urlString) >= 0) {
+      callback(urlString, true);
+    } else {
+      callback(urlString, false);
+    }
+  });
+
 };
 
 exports.downloadUrls = function(){

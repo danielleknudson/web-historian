@@ -10,7 +10,7 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
-exports.serveAssets = function(response, asset, callback) {
+exports.serveAssets = serveAssets = function(response, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...), css, or anything that doesn't change often.)
 
@@ -21,6 +21,8 @@ exports.serveAssets = function(response, asset, callback) {
   fs.readFile(filepath, function(error, file){
     if (error){
       // TODO: error handling
+      console.log('==================>SHIT! ERROR!!!');
+      console.log(error);
     }
 
     response.writeHead(200, headers);
@@ -39,9 +41,25 @@ exports.handlePost = function (request, response, callback) {
 
     var urlString = data.substr(4);
 
-    if (archive.isUrlInList(urlString) === false) {
-      archive.addUrlToList(urlString, response);
-    }
+    archive.isUrlInList(urlString, function(urlString, isFound){
+      if (isFound) {
+        // check if the page is downloaded and is in archive
+        archive.isURLArchived(urlString, function(urlString, isArchives) {
+          if (isArchives) {
+            // serve page
+            serveAssets(response, '../archives/sites/' + urlString, null);
+          } else {
+            headers['Location'] = '/loading.html'
+            response.writeHead(302, headers);
+            response.end();
+          }
+        });
+      } else {
+        // add to list
+        archive.addUrlToList(urlString, response);
+
+      }
+    });
 
   });
 

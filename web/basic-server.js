@@ -17,19 +17,6 @@ var routes = {
 
 var port = 8080;
 var ip = "127.0.0.1";
-var server = http.createServer(function (request, response) {
-  var parts = urlParser.parse(request.url);
-  var route = routes[parts.pathname];
-
-  if (route) {
-    console.log('=================>TRYING TO ROUTE');
-    route(request, response);
-  } else {
-    console.log('==================> RESPOND 404')
-    response.writeHead(404, helpers.headers);
-    response.end('Not found!');
-  }
-
-});
+var server = http.createServer(handler.handleRequest);
 console.log("Listening on http://" + ip + ":" + port);
 server.listen(port, ip);
